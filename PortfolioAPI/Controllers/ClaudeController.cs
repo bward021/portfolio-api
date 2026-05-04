@@ -20,7 +20,7 @@ namespace PortfolioAPI.Controllers
         [HttpPost("chat")]
         public async Task<IActionResult> Chat([FromBody] ChatRequest request)
         {
-            var apiKey = _configuration["Claude:ApiKey"];
+            var apiKey = _configuration["Claude__ApiKey"];
 
             var payload = new
             {
