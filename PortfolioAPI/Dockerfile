@@ -4,10 +4,9 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-COPY ["PortfolioAPI/PortfolioAPI.csproj", "PortfolioAPI/"]
-RUN dotnet restore "PortfolioAPI/PortfolioAPI.csproj"
+COPY ["PortfolioAPI.csproj", "./"]
+RUN dotnet restore "PortfolioAPI.csproj"
 COPY . .
-WORKDIR "/src/PortfolioAPI"
 RUN dotnet build "PortfolioAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
