@@ -1,0 +1,34 @@
+## .NET gitignore
+bin/
+obj/
+*.user
+*.suo
+.vs/
+appsettings.Development.json
+
+## User secrets
+secrets.json
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+
+## NuGet
+*.nupkg
+packages/
+!packages/build/
+
+## Visual Studio
+.vs/
+*.rsuser
+*.userosscache
+*.sln.docstates
+
+## Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
