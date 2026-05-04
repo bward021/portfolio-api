@@ -20,7 +20,14 @@ namespace PortfolioAPI.Controllers
         [HttpPost("chat")]
         public async Task<IActionResult> Chat([FromBody] ChatRequest request)
         {
-            var apiKey = _configuration["Claude__ApiKey"];
+            var apiKey = _configuration["Claude__ApiKey"]
+                        ?? _configuration["Claude:ApiKey"]
+                        ?? Environment.GetEnvironmentVariable("Claude__ApiKey");
+
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                return BadRequest("API key not found");
+            }
 
             var payload = new
             {
