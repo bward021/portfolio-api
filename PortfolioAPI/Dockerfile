@@ -1,11 +1,10 @@
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview AS base
 WORKDIR /app
 EXPOSE 8080
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
 WORKDIR /src
 COPY . .
-RUN ls -la
 RUN dotnet restore "PortfolioAPI.csproj"
 RUN dotnet build "PortfolioAPI.csproj" -c Release -o /app/build
 
