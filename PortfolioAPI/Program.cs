@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PortfolioAPI.Data;
+using Resend;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,10 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod();
     });
 });
-
+builder.Services.AddHttpClient<ResendClient>();
+builder.Services.Configure<ResendClientOptions>(o => {
+    o.ApiToken = builder.Configuration["Resend:ApiKey"]!;
+});
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
