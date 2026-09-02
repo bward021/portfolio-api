@@ -14,6 +14,7 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
+builder.Services.AddHealthChecks();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddCors(options =>
@@ -50,5 +51,9 @@ app.UseCors("AllowAngular");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+// Railway gates each deployment on this before shifting traffic to it, so a container
+// that builds but fails to start no longer replaces a working one. Liveness only: the
+// database is already a hard requirement at boot via Migrate() above.
+app.MapHealthChecks("/health");
 
 app.Run();
